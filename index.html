@@ -16,16 +16,18 @@
             background: var(--body-bg, #000);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            gap: 20px;
             transition: background 0.3s ease;
         }
 
         .calculator {
             background: var(--calc-bg, #1c1c1e);
             border-radius: 30px;
-            padding: 25px;
+            padding: 20px;
             width: 100%;
             max-width: 340px;
             box-shadow: var(--calc-shadow, 0 10px 40px rgba(0,0,0,0.3));
@@ -35,23 +37,17 @@
         .display {
             background: transparent;
             color: var(--display-color, #fff);
-            font-size: 60px;
+            font-size: 56px;
             text-align: right;
-            padding: 20px;
-            min-height: 80px;
+            padding: 15px 20px;
+            min-height: 70px;
             display: flex;
             align-items: flex-end;
             justify-content: flex-end;
             font-weight: 300;
-            overflow-x: auto;
-            overflow-y: hidden;
-            white-space: nowrap;
+            overflow: hidden;
             word-break: break-all;
             line-height: 1;
-        }
-
-        .display::-webkit-scrollbar {
-            display: none;
         }
 
         .display.placeholder {
@@ -61,6 +57,7 @@
         .buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(5, 1fr);
             gap: 12px;
             margin-top: 15px;
         }
@@ -69,13 +66,15 @@
             border: none;
             border-radius: 50%;
             font-size: 28px;
-            padding: 18px;
+            padding: 0;
             cursor: pointer;
             transition: all 0.15s ease;
             font-weight: 400;
             outline: none;
             -webkit-tap-highlight-color: transparent;
-            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         button:active {
@@ -101,42 +100,47 @@
         }
 
         button.zero {
-            grid-column: span 2;
+            grid-column: 1 / 3;
             border-radius: 40px;
-            aspect-ratio: auto;
-            padding-left: 35px;
-            text-align: left;
+            padding-left: 30px;
+            justify-content: flex-start;
         }
 
         /* 皮肤切换器 */
         .theme-switcher {
             display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding: 10px;
+            gap: 8px;
+            padding: 10px 15px;
             background: var(--switcher-bg, rgba(255,255,255,0.1));
-            border-radius: 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
         }
 
         .theme-btn {
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            border: 3px solid transparent;
+            border: 2px solid transparent;
             cursor: pointer;
             transition: all 0.2s ease;
             padding: 0;
-            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
         .theme-btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
         .theme-btn.active {
             border-color: #fff;
-            box-shadow: 0 0 15px rgba(255,255,255,0.5);
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+            transform: scale(1.1);
         }
 
         /* iOS深色主题（默认） */
@@ -157,11 +161,11 @@
 
         /* iOS浅色主题 */
         [data-theme="ios-light"] {
-            --body-bg: #f5f5f5;
+            --body-bg: #f2f2f7;
             --calc-bg: #fff;
             --display-color: #000;
             --placeholder-color: #999;
-            --number-bg: #e5e5e5;
+            --number-bg: #e5e5ea;
             --number-color: #000;
             --operator-bg: #ff9500;
             --operator-color: #fff;
@@ -173,15 +177,15 @@
 
         /* Material Design主题 */
         [data-theme="material"] {
-            --body-bg: #2d2d2d;
-            --calc-bg: #1e1e1e;
+            --body-bg: #212121;
+            --calc-bg: #303030;
             --display-color: #fff;
-            --placeholder-color: #666;
-            --number-bg: #2d2d2d;
+            --placeholder-color: #757575;
+            --number-bg: #424242;
             --number-color: #fff;
             --operator-bg: #2196f3;
             --operator-color: #fff;
-            --function-bg: #424242;
+            --function-bg: #616161;
             --function-color: #fff;
             --calc-shadow: 0 10px 40px rgba(0,0,0,0.4);
             --switcher-bg: rgba(255,255,255,0.1);
@@ -239,19 +243,19 @@
         @media (max-width: 400px) {
             .calculator {
                 border-radius: 25px;
-                padding: 20px;
+                padding: 15px;
                 max-width: 100%;
             }
 
             .display {
-                font-size: 50px;
-                min-height: 70px;
-                padding: 15px;
+                font-size: 48px;
+                min-height: 60px;
+                padding: 12px 15px;
             }
 
             button {
                 font-size: 24px;
-                padding: 16px;
+                min-height: 60px;
             }
 
             button.operator {
@@ -259,7 +263,7 @@
             }
 
             button.function {
-                font-size: 20px;
+                font-size: 18px;
             }
 
             .buttons {
@@ -267,30 +271,34 @@
             }
 
             button.zero {
-                padding-left: 30px;
+                padding-left: 25px;
             }
         }
 
         @media (max-width: 360px) {
             .display {
-                font-size: 45px;
+                font-size: 42px;
             }
 
             button {
                 font-size: 22px;
-                padding: 14px;
+                min-height: 55px;
+            }
+
+            .buttons {
+                gap: 8px;
             }
         }
     </style>
 </head>
 <body data-theme="ios-dark">
     <div class="theme-switcher">
-        <button class="theme-btn active" data-theme="ios-dark" style="background: #1c1c1e;" title="iOS深色"></button>
-        <button class="theme-btn" data-theme="ios-light" style="background: #fff;" title="iOS浅色"></button>
-        <button class="theme-btn" data-theme="material" style="background: #1e1e1e;" title="Material"></button>
-        <button class="theme-btn" data-theme="purple" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);" title="紫色"></button>
-        <button class="theme-btn" data-theme="green" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);" title="绿色"></button>
-        <button class="theme-btn" data-theme="neon" style="background: #0a0a0a;" title="霓虹"></button>
+        <button class="theme-btn active" data-theme="ios-dark" style="background: #1c1c1e;" title="暗色">🌙</button>
+        <button class="theme-btn" data-theme="ios-light" style="background: #fff; color: #333;" title="浅色">☀️</button>
+        <button class="theme-btn" data-theme="material" style="background: #303030;" title="材质">⬜</button>
+        <button class="theme-btn" data-theme="purple" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);" title="紫色">💜</button>
+        <button class="theme-btn" data-theme="green" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);" title="绿色">💚</button>
+        <button class="theme-btn" data-theme="neon" style="background: #0a0a0a;" title="霓虹">⚡</button>
     </div>
 
     <div class="calculator">
@@ -329,7 +337,6 @@
 
         function updateDisplay() {
             display.textContent = currentValue;
-            display.scrollLeft = display.scrollWidth;
             if (currentValue === '0') {
                 display.classList.add('placeholder');
             } else {
